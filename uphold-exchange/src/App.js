@@ -1,22 +1,23 @@
 import React from 'react';
 import { ExchangeRateProvider } from './context/ExchangeRateContext';
-import CurrencySelector from './components/CurrencySelector';
+import CurrencyConverter from './components/CurrencyConverter';
 import ExchangeRatesDisplay from './components/ExchangeRatesDisplay';
-import InputField from './components/InputField';
 import './App.css';
 
 const App = () => {
   return (
     <ExchangeRateProvider>
-      <div className="App">
-        <header className="App-header">
-          <h1>Currency Exchange Rates</h1>
-        </header>
-        <main>
-          <InputField />
-          <CurrencySelector />
-          <ExchangeRatesDisplay />
-        </main>
+      <div className="app">
+        <div className="app-container">
+          <header className="app-header">
+            <h1 className="app-title">Currency Converter</h1>
+            <p className="app-description">Receive competitive and transparent pricing with no hidden spreads. See how we compare.</p>
+          </header>
+          <main className="app-main">
+            <CurrencyConverter/>
+            <ExchangeRatesDisplay />
+          </main>
+        </div>
       </div>
     </ExchangeRateProvider>
   );

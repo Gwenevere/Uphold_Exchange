@@ -1,0 +1,44 @@
+.currency-converter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background-color: #e4ecf0;
+    border-radius: 8px;
+    width: 90%;
+
+    .amount-input {
+        padding: 15px 20px;
+        border: none;
+        border-radius: 8px;
+        font-size: 24px;
+        color: #57627B; 
+        background-color: transparent;
+        width: 100%;
+        max-width: 400px;
+        -moz-appearance: textfield;
+        appearance: textfield;
+    }
+
+    .amount-input:focus {
+      outline: none;
+    }
+    
+    .amount-input::placeholder {
+        color: #AAB0B6;
+    }
+      
+      .amount-input::-webkit-outer-spin-button,
+      .amount-input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      
+    .amount-input::-moz-appearance {
+        -moz-appearance: textfield;
+        appearance: textfield;
+    }
+}
+
+
+  

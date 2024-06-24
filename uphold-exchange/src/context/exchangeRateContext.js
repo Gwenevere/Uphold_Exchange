@@ -5,7 +5,7 @@ import useExchangeRates from '../hooks/useExchangeRates';
 const ExchangeRateContext = createContext();
 
 const initialState = {
-    amount: 1,
+    amount: 0,
     currency: 'USD',
     exchangeRates: {},
 }

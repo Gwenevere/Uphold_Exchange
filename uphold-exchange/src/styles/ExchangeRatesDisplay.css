@@ -1,0 +1,35 @@
+
+.exchange-rates-display {
+    max-height: 300px;
+    overflow-y: auto;
+    width: 90%;
+    margin: 40px auto;
+    text-align: left;
+  }
+  
+  .exchange-rates-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .exchange-rate-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+  }
+  
+  .currency-to {
+    font-size: 1em;
+  }
+  
+  .currency-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+  
+  .exchange-rate {
+    font-size: 1.2em;
+    font-weight: 500;
+  }
+  
