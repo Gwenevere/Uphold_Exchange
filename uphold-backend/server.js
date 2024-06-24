@@ -38,8 +38,7 @@ app.get('/currencies', async (req, res) => {
 
 app.get('/ticker/:currency', async (req, res) => {
   const { currency } = req.params;
-  console.log(currency);
-
+  
   try {
     const tokenResponse = await axios.post(`${baseUrl}/oauth2/token`, new URLSearchParams({
       grant_type: 'client_credentials'
