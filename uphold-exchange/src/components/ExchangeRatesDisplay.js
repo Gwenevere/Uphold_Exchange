@@ -9,6 +9,14 @@ const ExchangeRatesDisplay = () => {
   if (error) return <p>{error}</p>;
   if (!exchangeRates || !exchangeRates.length || amount === 0) return <p>Enter an amount to check the rates.</p>;
 
+  const getImageSrc = (currencyCode) => {
+    try {
+      return require(`../assets/${currencyCode}.png`);
+    } catch (error) {
+      return require(`../assets/Crypto.png`);
+    }
+  };
+
   return (
     <div className="exchange-rates-display">
       <ul className="exchange-rates-list">
@@ -19,7 +27,7 @@ const ExchangeRatesDisplay = () => {
               <li key={pair} className="exchange-rate-item">
                 <span className="exchange-rate">{(rate * amount).toFixed(2)}</span>
                 <div className="currency-container">
-                  <img src={`../assets/${to}.png`} width="24" height="24" alt={to} className="currency-icon" />
+                  <img src={getImageSrc(to)} width="24" height="24" alt={to} className="currency-icon" />
                   <span className="currency-to">{to}</span>
                 </div>
               </li>

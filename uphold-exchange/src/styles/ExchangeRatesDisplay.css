@@ -15,6 +15,7 @@
   .exchange-rate-item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 10px 20px;
   }
   
@@ -23,13 +24,16 @@
   }
   
   .currency-icon {
-    width: 20px;
-    height: 20px;
     margin-right: 10px;
   }
   
   .exchange-rate {
     font-size: 1.2em;
     font-weight: 500;
+  }
+
+  .currency-container {
+    display: flex;
+    align-items: center; 
   }
   

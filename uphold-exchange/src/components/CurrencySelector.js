@@ -26,11 +26,19 @@ const CurrencySelector = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  const getImageSrc = (currencyCode) => {
+    try {
+      return require(`../assets/${currencyCode}.png`);
+    } catch (error) {
+      return require(`../assets/Crypto.png`);
+    }
+  };
   
   return (
     <div className="currency-selector" ref={dropdownRef}>
       <div className="dropdown-selected" onClick={toggleDropdown}>
-        <img src={`../assets/${currency}.png`} width="24" height="24" alt={currency} className="dropdown-icon" />
+        <img src={getImageSrc(currency)} width="24" height="24" alt={currency} className="dropdown-icon" />
         {currency}
         <span className="dropdown-arrow">&#9662;</span>
       </div>
@@ -42,7 +50,7 @@ const CurrencySelector = () => {
               className="dropdown-option"
               onClick={() => handleCurrencyChange(cur.code)}
             >
-              <img src={`../assets/${cur.code}.png`} width="24" height="24" alt={cur.code} className="dropdown-icon" />
+              <img src={getImageSrc(cur.code)} width="24" height="24" alt={cur.code} className="dropdown-icon" />
               {cur.code}
             </div>
           ))}
