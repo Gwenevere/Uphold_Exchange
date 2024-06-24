@@ -38,7 +38,7 @@ app.get('/currencies', async (req, res) => {
 
 app.get('/ticker/:currency', async (req, res) => {
   const { currency } = req.params;
-  
+
   try {
     const tokenResponse = await axios.post(`${baseUrl}/oauth2/token`, new URLSearchParams({
       grant_type: 'client_credentials'
@@ -56,8 +56,13 @@ app.get('/ticker/:currency', async (req, res) => {
         'Authorization': `Bearer ${token}`
       }
     });
+
+    const exchangeRates = exchangeRatesResponse.data.map(rate => ({
+      pair: rate.pair,
+      rate: parseFloat(rate.ask) 
+    }));
    
-    res.json(exchangeRatesResponse.data);
+    res.json(exchangeRates);
   } 
   catch (error) {
     console.error('Error fetching exchange rates from Uphold API:', error.message);

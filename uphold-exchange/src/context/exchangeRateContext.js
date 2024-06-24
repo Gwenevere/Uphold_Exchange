@@ -1,4 +1,4 @@
-import React, {createContext, useReducer} from 'react';
+import React, {createContext, useReducer, useEffect} from 'react';
 import useCurrencies from '../hooks/useCurrencies';
 import useExchangeRates from '../hooks/useExchangeRates';
 
@@ -26,11 +26,16 @@ const reducer = (state, action) => {
 const ExchangeRateProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const currencies = useCurrencies();
-    const exchangeRates = useExchangeRates(state.currency);
+    const { exchangeRates, loading, error} = useExchangeRates(state.currency);
+
+    useEffect(() => {
+        if (exchangeRates) {
+          dispatch({ type: 'SET_EXCHANGE_RATES', payload: exchangeRates });
+        }
+      }, [exchangeRates]);
 
     const setAmount = (amount) => dispatch({ type: 'SET_AMOUNT', payload: amount });
     const setCurrency = (currency) => dispatch({ type: 'SET_CURRENCY', payload: currency });
-    const setExchangeRates = (rates) => dispatch({ type: 'SET_EXCHANGE_RATES', payload: rates });
 
     return (
         <ExchangeRateContext.Provider
@@ -39,8 +44,9 @@ const ExchangeRateProvider = ({ children }) => {
             currencies,
             setAmount,
             setCurrency,
-            setExchangeRates,
             exchangeRates,
+            loading,
+            error
           }}
         >
           {children}

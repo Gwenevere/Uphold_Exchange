@@ -1,17 +1,22 @@
-import React, { useContext } from 'react';
-import './App.css';
-import { ExchangeRateContext, ExchangeRateProvider } from './context/exchangeRateContext';
+import React from 'react';
+import { ExchangeRateProvider } from './context/ExchangeRateContext';
+import CurrencySelector from './components/CurrencySelector';
+import ExchangeRatesDisplay from './components/ExchangeRatesDisplay';
 import InputField from './components/InputField';
+import './App.css';
 
-function App() {
-
+const App = () => {
   return (
     <ExchangeRateProvider>
       <div className="App">
         <header className="App-header">
-          <h1>InputField Test</h1>
-          <InputField />
+          <h1>Currency Exchange Rates</h1>
         </header>
+        <main>
+          <InputField />
+          <CurrencySelector />
+          <ExchangeRatesDisplay />
+        </main>
       </div>
     </ExchangeRateProvider>
   );
