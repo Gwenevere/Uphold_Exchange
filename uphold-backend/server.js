@@ -17,7 +17,7 @@ app.get('/currencies', async (req, res) => {
       }), {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Basic ' + Buffer.from(`${clientId}:${clientSecret}`).toString('base64'),
+        'Authorization': 'Basic ' + btoa(`${clientId}:${clientSecret}`),
       }
     });
 
@@ -33,6 +33,36 @@ app.get('/currencies', async (req, res) => {
   } catch (error) {
     console.error('Error fetching currencies:', error);
     res.status(500).json({ error: error.message });
+  }
+}); 
+
+app.get('/ticker/:currency', async (req, res) => {
+  const { currency } = req.params;
+  console.log(currency);
+
+  try {
+    const tokenResponse = await axios.post(`${baseUrl}/oauth2/token`, new URLSearchParams({
+      grant_type: 'client_credentials'
+    }), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Basic ' + btoa(`${clientId}:${clientSecret}`),
+      }
+    });
+
+    const token = tokenResponse.data.access_token;
+
+    const exchangeRatesResponse = await axios.get(`${baseUrl}/v0/ticker/${currency}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+   
+    res.json(exchangeRatesResponse.data);
+  } 
+  catch (error) {
+    console.error('Error fetching exchange rates from Uphold API:', error.message);
+    res.status(500).json({ error: 'Failed to fetch exchange rates' });
   }
 });
 

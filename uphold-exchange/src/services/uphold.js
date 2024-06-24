@@ -6,3 +6,4 @@ const sdk = new SDK({
   clientSecret: '1d305ed25dc05e734aaebcbe1b5434c7d88cebb7'
 });
 
+export default sdk;
