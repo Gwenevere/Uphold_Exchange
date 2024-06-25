@@ -25,8 +25,8 @@ const reducer = (state, action) => {
 
 const ExchangeRateProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
-    const currencies = useCurrencies();
-    const { exchangeRates, loading, error} = useExchangeRates(state.currency);
+    const { currencies, currenciesLoading, currenciesError } = useCurrencies();
+    const { exchangeRates, exchangesLoading, exchangesError} = useExchangeRates(state.currency);
 
     useEffect(() => {
         if (exchangeRates) {
@@ -45,8 +45,10 @@ const ExchangeRateProvider = ({ children }) => {
             setAmount,
             setCurrency,
             exchangeRates,
-            loading,
-            error
+            exchangesLoading,
+            exchangesError,
+            currenciesLoading,
+            currenciesError
           }}
         >
           {children}

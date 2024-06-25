@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
 const bodyParser = require('body-parser');
@@ -5,23 +6,26 @@ const app = express();
 const PORT = 5000;
 
 const baseUrl = 'https://api-sandbox.uphold.com';
-const clientId = 'ed1c480dacc10656f894ef5f906d1dfcbb4c5f52';
-const clientSecret = '1d305ed25dc05e734aaebcbe1b5434c7d88cebb7';
+const clientId = process.env.CLIENT_ID;
+const clientSecret = process.env.CLIENT_SECRET;
 
 app.use(bodyParser.json());
 
+const fetchToken = async () => {
+  const tokenResponse = await axios.post(`${baseUrl}/oauth2/token`, new URLSearchParams({
+    grant_type: 'client_credentials'
+  }), {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Basic ' + btoa(`${clientId}:${clientSecret}`),
+    }
+  });
+  return tokenResponse.data.access_token;
+};
+
 app.get('/currencies', async (req, res) => {
   try {
-    const tokenResponse = await axios.post(`${baseUrl}/oauth2/token`, new URLSearchParams({
-        grant_type: 'client_credentials'
-      }), {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Basic ' + btoa(`${clientId}:${clientSecret}`),
-      }
-    });
-
-    const token = tokenResponse.data.access_token;
+    const token = await fetchToken();
 
     const currenciesResponse = await axios.get(`${baseUrl}/v0/assets`, {
       headers: {
@@ -40,16 +44,7 @@ app.get('/ticker/:currency', async (req, res) => {
   const { currency } = req.params;
 
   try {
-    const tokenResponse = await axios.post(`${baseUrl}/oauth2/token`, new URLSearchParams({
-      grant_type: 'client_credentials'
-    }), {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Basic ' + btoa(`${clientId}:${clientSecret}`),
-      }
-    });
-
-    const token = tokenResponse.data.access_token;
+    const token = await fetchToken();
 
     const exchangeRatesResponse = await axios.get(`${baseUrl}/v0/ticker/${currency}`, {
       headers: {

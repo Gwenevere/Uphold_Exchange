@@ -3,7 +3,7 @@ import { ExchangeRateContext } from '../context/ExchangeRateContext';
 import '../styles/CurrencySelector.css';
 
 const CurrencySelector = () => {
-  const { currencies, currency, setCurrency } = useContext(ExchangeRateContext);
+  const { currencies, currenciesLoading, currenciesError, currency, setCurrency } = useContext(ExchangeRateContext);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -34,6 +34,9 @@ const CurrencySelector = () => {
       return require(`../assets/Crypto.png`);
     }
   };
+
+  if (currenciesLoading) return <p>Loading...</p>;
+  if (currenciesError) return <p>{currenciesError}</p>;
   
   return (
     <div className="currency-selector" ref={dropdownRef}>
@@ -60,4 +63,4 @@ const CurrencySelector = () => {
   );
 };
 
-export default CurrencySelector;
+export default React.memo(CurrencySelector);

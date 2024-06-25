@@ -35,5 +35,6 @@
   .currency-container {
     display: flex;
     align-items: center; 
+    width: 20%;
   }
   

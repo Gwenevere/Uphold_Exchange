@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 
 const useExchangeRates = (currency) => {
   const [exchangeRates, setExchangeRates] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [exchangesLoading, setLoading] = useState(true);
+  const [exchangesError, setError] = useState(null);
 
  useEffect(() => {
     const fetchExchangeRates = async () => {
@@ -34,7 +34,7 @@ const useExchangeRates = (currency) => {
       fetchExchangeRates();
     }}, [currency]);
 
-  return { exchangeRates, loading, error };
+  return { exchangeRates, exchangesLoading, exchangesError };
 
 };
 
