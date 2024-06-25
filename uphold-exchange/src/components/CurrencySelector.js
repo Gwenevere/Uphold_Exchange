@@ -1,5 +1,6 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
 import { ExchangeRateContext } from '../context/ExchangeRateContext';
+import { getImageSrc } from '../utils/getImageSrc';
 import '../styles/CurrencySelector.css';
 
 const CurrencySelector = () => {
@@ -26,14 +27,6 @@ const CurrencySelector = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
-  const getImageSrc = (currencyCode) => {
-    try {
-      return require(`../assets/${currencyCode}.png`);
-    } catch (error) {
-      return require(`../assets/Crypto.png`);
-    }
-  };
 
   if (currenciesLoading) return <p>Loading...</p>;
   if (currenciesError) return <p>{currenciesError}</p>;

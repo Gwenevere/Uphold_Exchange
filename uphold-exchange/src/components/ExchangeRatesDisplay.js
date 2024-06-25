@@ -1,18 +1,12 @@
 import React, { useContext } from 'react';
 import { ExchangeRateContext } from '../context/ExchangeRateContext';
-import '../styles/ExchangeRatesDisplay.css';
 import Spinner from '../components/Spinner';
+import { getImageSrc } from '../utils/getImageSrc';
+import '../styles/ExchangeRatesDisplay.css';
+
 
 const ExchangeRatesDisplay = () => {
   const { exchangeRates, amount, exchangesLoading, exchangesError, currency } = useContext(ExchangeRateContext);
-
-  const getImageSrc = (currencyCode) => {
-    try {
-      return require(`../assets/${currencyCode}.png`);
-    } catch (error) {
-      return require(`../assets/Crypto.png`);
-    }
-  };
 
   if (exchangesLoading) return <Spinner/>;
   if (exchangesError) return <p>{exchangesError}</p>;
